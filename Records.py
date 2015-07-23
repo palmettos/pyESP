@@ -135,30 +135,3 @@ class Enchantment:
     def finalize(self):
         self.record.finalize()
         self.record = self.record.record
-
-
-#effect example [['FIDG', 5, 0, 0, 1, 8], ['SHDG', 5, 0, 0, 1, 8]]
-
-formid = 0x01000ED3
-edid = 'OBXLTestEnchFIDGSHDG'
-enit = [2, 0, 0, 0]
-effects = [['FIDG', 5, 0, 0, 1, 8], ['SHDG', 5, 0, 0, 1, 8]]
-
-h = Header('palmettos', 'Oblivion.esm')
-g = Group('ENCH', 0)
-e = Enchantment(formid, edid, enit)
-for effect in effects:
-    e.add_effect(effect)
-
-e.finalize()
-g.add_record(e.record)
-g.finalize()
-h.add_group(g)
-h.finalize()
-
-f = open('testesp', 'wb')
-f.write(h.packed)
-for group in h.groups:
-    f.write(group.header)
-    for record in group.records:
-        f.write(record)
