@@ -156,8 +156,6 @@ g.finalize()
 h.add_group(g)
 h.finalize()
 
-
-
 f = open('testesp', 'wb')
 f.write(h.packed)
 for group in h.groups:
