@@ -72,15 +72,19 @@ class Subrecord:
 
 
 class Header:
-    def __init__(self, author, master_file):
+    def __init__(self, author, master_file = 'Oblivion.esm'):
         self.tes4 = TES4()
+
         self.hedr = Subrecord('HEDR')
         self.hedr.add_data(struct.pack('<L', 0x3F800000)) #version
         self.hedr.num_records = 0 #finalize
+
         self.cnam = Subrecord('CNAM')
         self.cnam.add_data(bytes(author) + '\x00')
+
         self.mast = Subrecord('MAST')
         self.mast.add_data(bytes(master_file) + '\x00') #master file
+
         self.groups = []
 
     def add_group(self, group):
@@ -102,9 +106,11 @@ class Enchantment:
     def __init__(self, form_id, edid, enit):
         #enit = [type, charge_amount, enchant_cost, flags] & flags (autocalc off) = 0 or 1
         self.record = Record('ENCH', 0, form_id)
+
         self.edid = Subrecord('EDID')
         self.edid.add_data(bytes(edid) + '\x00')
         self.edid.finalize()
+
         self.record.add_subrecord(self.edid.subrecord)
 
         self.enit = Subrecord('ENIT')
@@ -118,6 +124,7 @@ class Enchantment:
         self.efid = Subrecord('EFID')
         self.efid.add_data(bytes(efit[0])) #effect_id
         self.efid.finalize()
+
         self.record.add_subrecord(self.efid.subrecord)
 
         self.efit = Subrecord('EFIT')
@@ -125,6 +132,7 @@ class Enchantment:
         for item in efit[1:]:
             self.efit.add_data(struct.pack('<L', item))
         self.efit.finalize()
+        
         self.record.add_subrecord(self.efit.subrecord)
 
     def add_script_effect(self, scit):
