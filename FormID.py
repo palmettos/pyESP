@@ -6,3 +6,4 @@ class FormIDHandler:
     def new_form_id(self):
         self.current_form_id += 1
         return self.current_form_id
+        
