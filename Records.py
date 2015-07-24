@@ -42,18 +42,6 @@ class Record:
             self.flags + self.formid + self.vci + self.data)
 
 
-class TES4(Record):
-    def __init__(self):
-        Record.__init__(self, 'TES4', 0, 0, 0)
-
-    def finalize(self):
-        self.record = bytes('')
-        self.data_size = struct.pack('<L', self.data_size)
-        self.record += (self.type + self.data_size +
-            self.flags + self.formid + self.vci +
-            self.data)
-
-
 class Subrecord:
     def __init__(self, type):
         self.type = bytes(type)
@@ -72,7 +60,7 @@ class Subrecord:
 
 class Header:
     def __init__(self, author, master_file = 'Oblivion.esm'):
-        self.tes4 = TES4()
+        self.tes4 = Record('TES4')
 
         self.hedr = Subrecord('HEDR')
         self.hedr.add_data(struct.pack('<L', 0x3F800000)) #version
