@@ -45,7 +45,6 @@ class Record:
 class TES4(Record):
     def __init__(self):
         Record.__init__(self, 'TES4', 0, 0, 0)
-        self.data_size = 0
 
     def finalize(self):
         self.record = bytes('')
