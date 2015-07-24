@@ -60,7 +60,7 @@ class Subrecord:
 
 class Header:
     def __init__(self, author, master_file = 'Oblivion.esm'):
-        self.tes4 = Record('TES4')
+        self.tes4 = Record('TES4', 0, 0)
 
         self.hedr = Subrecord('HEDR')
         self.hedr.add_data(struct.pack('<L', 0x3F800000)) #version
