@@ -45,7 +45,7 @@ class Record:
 class TES4(Record):
     def __init__(self):
         Record.__init__(self, 'TES4', 0, 0, 0)
-        self.data_size = 14
+        self.data_size = 0
 
     def finalize(self):
         self.record = bytes('')
@@ -85,6 +85,9 @@ class Header:
         self.mast = Subrecord('MAST')
         self.mast.add_data(bytes(master_file) + '\x00') #master file
 
+        self.data = Subrecord('DATA')
+        self.data.add_data(struct.pack('<Q', 0))
+
         self.groups = []
 
     def add_group(self, group):
@@ -97,7 +100,13 @@ class Header:
         self.hedr.finalize()
         self.cnam.finalize()
         self.mast.finalize()
-        self.tes4.add_subrecord((self.hedr.subrecord + self.cnam.subrecord + self.mast.subrecord))
+        self.data.finalize()
+        self.tes4.add_subrecord((
+            self.hedr.subrecord +
+            self.cnam.subrecord +
+            self.mast.subrecord +
+            self.data.subrecord
+            ))
         self.tes4.finalize()
         self.packed = self.tes4.record
 
@@ -132,7 +141,7 @@ class Enchantment:
         for item in efit[1:]:
             self.efit.add_data(struct.pack('<L', item))
         self.efit.finalize()
-        
+
         self.record.add_subrecord(self.efit.subrecord)
 
     def add_script_effect(self, scit):
