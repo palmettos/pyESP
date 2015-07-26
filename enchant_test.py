@@ -222,7 +222,7 @@ h = Header('palmettos')
 g = Group('ENCH', 0)
 e = None
 
-for meffs in itertools.combinations(enchants.keys(), 6):
+for meffs in itertools.combinations(enchants.keys(), 2):
     meffs = list(meffs)
     random.shuffle(meffs)
 
@@ -254,7 +254,7 @@ g.finalize()
 h.add_group(g)
 h.finalize()
 
-f = open('6.esp', 'wb')
+f = open('8.esp', 'wb')
 f.write(h.packed)
 for group in h.groups:
     f.write(group.header)

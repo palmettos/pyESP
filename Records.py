@@ -139,3 +139,91 @@ class Enchantment:
     def finalize(self):
         self.record.finalize()
         self.record = self.record.record
+
+
+class Weapon:
+    def __init__(self, form_id):
+        self.weap = Record('WEAP', 0, form_id)
+        self.data = Subrecord('DATA')
+
+    def set_edid(self, edid):
+        self.edid = Subrecord('EDID')
+        self.edid.add_data(bytes(edid) + '\x00')
+        self.edid.finalize()
+
+    def set_name(self, name):
+        self.full = Subrecord('FULL')
+        self.full.add_data(bytes(name) + '\x00')
+        self.full.finalize()
+
+    def set_model(self, model):
+        self.modl = Subrecord('MODL')
+        self.modl.add_data(bytes(model) + '\x00')
+        self.modl.finalize()
+
+    def set_bound_radius(self, radius):
+        pass
+
+    def set_icon(self, icon):
+        self.icon = Subrecord('ICON')
+        self.icon.add_data(bytes(icon) + '\x00')
+        self.icon.finalize()
+
+    def set_enchantment_points(self, points):
+        self.anam = Subrecord('ANAM')
+        self.anam.add_data(struct.pack('<H', points))
+        self.anam.finalize()
+
+    def set_enchantment(self, form_id):
+        self.enam = Subrecord('ENAM')
+        self.enam.add_data(struct.pack('<L', form_id))
+        self.enam.finalize()
+
+    def set_type(self, type):
+        self.type = struct.pack('<L', type)
+
+    def set_speed(self, speed):
+        self.speed = struct.pack('<f', speed)
+
+    def set_reach(self, reach):
+        self.reach = struct.pack('<f', reach)
+
+    def set_flags(self, flags):
+        self.flags = struct.pack('<L', flags)
+
+    def set_value(self, value):
+        self.value = struct.pack('<L', value)
+
+    def set_health(self, health):
+        self.health = struct.pack('<L', health)
+
+    def set_weight(self, weight):
+        self.weight = struct.pack('<f', weight)
+
+    def set_damage(self, damage):
+        self.damage = struct.pack('<H', damage)
+
+    def finalize(self):
+        self.data.add_data(
+            self.type +
+            self.speed +
+            self.reach +
+            self.flags +
+            self.value +
+            self.health +
+            self.weight +
+            self.damage
+            )
+        self.data.finalize()
+
+        self.weap.add_subrecord(
+            self.edid.subrecord +
+            self.full.subrecord +
+            self.modl.subrecord +
+            self.icon.subrecord +
+            self.anam.subrecord +
+            self.enam.subrecord +
+            self.data.subrecord
+            )
+        self.weap.finalize()
+        self.record = self.weap.record
