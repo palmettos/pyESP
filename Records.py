@@ -169,15 +169,20 @@ class Weapon:
         self.icon.add_data(bytes(icon) + '\x00')
         self.icon.finalize()
 
-    def set_enchantment_points(self, points):
-        self.anam = Subrecord('ANAM')
-        self.anam.add_data(struct.pack('<H', points))
-        self.anam.finalize()
+    def set_script(self, form_id):
+        self.scri = Subrecord('SCRI')
+        self.scri.add_data(struct.pack('<L', form_id))
+        self.scri.finalize()
 
     def set_enchantment(self, form_id):
         self.enam = Subrecord('ENAM')
         self.enam.add_data(struct.pack('<L', form_id))
         self.enam.finalize()
+
+    def set_enchantment_points(self, points):
+        self.anam = Subrecord('ANAM')
+        self.anam.add_data(struct.pack('<H', points))
+        self.anam.finalize()
 
     def set_type(self, type):
         self.type = struct.pack('<L', type)
@@ -221,8 +226,9 @@ class Weapon:
             self.full.subrecord +
             self.modl.subrecord +
             self.icon.subrecord +
-            self.anam.subrecord +
+            self.scri.subrecord +
             self.enam.subrecord +
+            self.anam.subrecord +
             self.data.subrecord
             )
         self.weap.finalize()

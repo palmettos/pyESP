@@ -1,0 +1,182 @@
+{
+    "BRDN": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [25, 100],
+        "actor_value": 11
+    },
+    "TURN": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [15, 45],
+        "actor_value": 34
+    },
+    "DGFA": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [25, 40],
+        "actor_value": 10
+    },
+    "DGHE": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 11],
+        "actor_value": 8
+    },
+    "DGSP": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [10, 25],
+        "actor_value": 9
+    },
+    "DIAR": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [20, 50],
+        "actor_value": 0
+    },
+    "DIWE": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [20, 50],
+        "actor_value": 0
+    },
+    "DRFA": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [25, 40],
+        "actor_value": 10
+    },
+    "DRHE": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 20],
+        "actor_value": 8
+    },
+    "DRSP": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [10, 25],
+        "actor_value": 9
+    },
+    "FIDG": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 11],
+        "actor_value": 8
+    },
+    "FRDG": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 11],
+        "actor_value": 8
+    },
+    "SHDG": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 11],
+        "actor_value": 8
+    },
+    "WKFI": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 61
+    },
+    "WKFR": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 62
+    },
+    "WKMA": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 64
+    },
+    "WKNW": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 65
+    },
+    "WKPO": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 67
+    },
+    "WKSH": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [5, 20],
+        "actor_value": 68
+    },
+    "CALM": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [15, 45],
+        "actor_value": 33
+    },
+    "COCR": {
+        "area":       [0, 0],
+        "duration":   [10, 40],
+        "magnitude":  [15, 45],
+        "actor_value": 0
+    },
+    "COHU": {
+        "area":       [0, 0],
+        "duration":   [10, 40],
+        "magnitude":  [15, 45],
+        "actor_value": 0
+    },
+    "DEMO": {
+        "area":       [0, 0],
+        "duration":   [10, 25],
+        "magnitude":  [15, 45],
+        "actor_value": 34
+    },
+    "FRNZ": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [15, 45],
+        "actor_value": 33
+    },
+    "RALY": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [15, 45],
+        "actor_value": 34
+    },
+    "SLNC": {
+        "area":       [0, 0],
+        "duration":   [5, 20],
+        "magnitude":  [0, 0],
+        "actor_value": 49
+    },
+    "DSPL": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [15, 45],
+        "actor_value": 0
+    },
+    "STRP": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 20],
+        "actor_value": 0
+    },
+    "ABHE": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [5, 11],
+        "actor_value": 8
+    },
+    "ABSP": {
+        "area":       [0, 0],
+        "duration":   [0, 0],
+        "magnitude":  [10, 25],
+        "actor_value": 9
+    }
+}
