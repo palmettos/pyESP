@@ -4,7 +4,7 @@ import itertools
 import random
 import json
 
-cols = {
+enchant_cols = {
     "Weight":           0,
     "Speed":            1,
     "Reach":            2,
@@ -39,7 +39,7 @@ weap_types = {
     "Bow":                  5
 }
 
-max_meffs = 4
+max_meffs = 5
 enchants = open('weapon_meffs.json', 'r')
 enchants = json.load(enchants)
 ench_type = 2
@@ -102,19 +102,19 @@ for n in range(1, max_meffs + 1):
         w = Weapon(form_ids.new_form_id())
         w.set_edid(edid)
         w.set_name('OBXLWeap' + edid_suff)
-        w.set_model(rand_weapon[cols["Model"]])
-        w.set_icon('Weapons\GlassLongsword.dds')
+        w.set_model(rand_weapon[enchant_cols["Model"]])
+        w.set_icon(rand_weapon[enchant_cols["Icon"]])
         w.set_script(0)
         w.set_enchantment_points(5000)
         w.set_enchantment(ench_form_id)
-        w.set_type(int(weap_types[rand_weapon[cols["Type"]]]))
-        w.set_speed(float(rand_weapon[cols["Speed"]]))
-        w.set_reach(float(rand_weapon[cols["Reach"]]))
+        w.set_type(int(weap_types[rand_weapon[enchant_cols["Type"]]]))
+        w.set_speed(float(rand_weapon[enchant_cols["Speed"]]))
+        w.set_reach(float(rand_weapon[enchant_cols["Reach"]]))
         w.set_flags(0)
-        w.set_value(int(rand_weapon[cols["Value"]]))
-        w.set_health(int(rand_weapon[cols["Health"]]))
-        w.set_weight(float(rand_weapon[cols["Weight"]]))
-        w.set_damage(int(rand_weapon[cols["Damage"]]))
+        w.set_value(int(rand_weapon[enchant_cols["Value"]]) + (500*n))
+        w.set_health(int(rand_weapon[enchant_cols["Health"]]))
+        w.set_weight(float(rand_weapon[enchant_cols["Weight"]]))
+        w.set_damage(int(rand_weapon[enchant_cols["Damage"]]))
         w.finalize()
         g_weapons.add_record(w.record)
 
