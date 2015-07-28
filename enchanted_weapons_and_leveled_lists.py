@@ -54,6 +54,8 @@ form_ids = FormIDHandler()
 h = Header('palmettos')
 g_enchants = Group('ENCH', 0)
 g_weapons = Group('WEAP', 0)
+g_lvli = Group('LVLI', 0)
+lvli = LeveledItem(0x00033FBA, 'LL1NPCWeaponBlunt100', 0, 1)
 e = None
 w = None
 
@@ -99,7 +101,8 @@ for n in range(1, max_meffs + 1):
 
         rand_weapon = weapons[random.randint(0, len(weapons)-1)]
         edid = 'OBXLWeap' + edid_suff
-        w = Weapon(form_ids.new_form_id())
+        item_form_id = form_ids.new_form_id()
+        w = Weapon(item_form_id)
         w.set_edid(edid)
         w.set_name('OBXLWeap' + edid_suff)
         w.set_model(rand_weapon[enchant_cols["Model"]])
@@ -107,7 +110,7 @@ for n in range(1, max_meffs + 1):
         w.set_script(0)
         w.set_enchantment_points(5000)
         w.set_enchantment(ench_form_id)
-        w.set_type(int(weap_types[rand_weapon[enchant_cols["Type"]]]))
+        w.set_type(weap_types[rand_weapon[enchant_cols["Type"]]])
         w.set_speed(float(rand_weapon[enchant_cols["Speed"]]))
         w.set_reach(float(rand_weapon[enchant_cols["Reach"]]))
         w.set_flags(0)
@@ -118,14 +121,21 @@ for n in range(1, max_meffs + 1):
         w.finalize()
         g_weapons.add_record(w.record)
 
+        if weap_types[rand_weapon[enchant_cols["Type"]]] == 0:
+            lvli.add_item(1, item_form_id, 1)
+
 
 g_enchants.finalize()
 h.add_group(g_enchants)
 g_weapons.finalize()
 h.add_group(g_weapons)
+lvli.finalize()
+g_lvli.add_record(lvli.record)
+g_lvli.finalize()
+h.add_group(g_lvli)
 h.finalize()
 
-f = open('8.esp', 'wb')
+f = open('OBXLTests.esp', 'wb')
 f.write(h.packed)
 for group in h.groups:
     f.write(group.header)

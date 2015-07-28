@@ -236,8 +236,8 @@ class Weapon:
 
 
 class LeveledItem:
-    def __init__(self, edid, chance_none, flag):
-        self.record = Record('LVLI')
+    def __init__(self, form_id, edid, chance_none, flag):
+        self.record = Record('LVLI', 0, form_id)
 
         self.edid = Subrecord('EDID')
         self.edid.add_data(bytes(edid) + '\x00')
@@ -266,3 +266,4 @@ class LeveledItem:
 
     def finalize(self):
         self.record.finalize()
+        self.record = self.record.record
