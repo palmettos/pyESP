@@ -233,3 +233,36 @@ class Weapon:
             )
         self.weap.finalize()
         self.record = self.weap.record
+
+
+class LeveledItem:
+    def __init__(self, edid, chance_none, flag):
+        self.record = Record('LVLI')
+
+        self.edid = Subrecord('EDID')
+        self.edid.add_data(bytes(edid) + '\x00')
+        self.edid.finalize()
+        self.record.add_subrecord(self.edid.subrecord)
+
+        self.chance_none = Subrecord('LVLD')
+        self.chance_none.add_data(struct.pack('<b', chance_none))
+        self.chance_none.finalize()
+        self.record.add_subrecord(self.chance_none.subrecord)
+
+        self.flag = Subrecord('LVLF')
+        self.flag.add_data(struct.pack('<b', flag))
+        self.flag.finalize()
+        self.record.add_subrecord(self.flag.subrecord)
+
+    def add_item(self, level, form_id, count):
+        self.lvlo = Subrecord('LVLO')
+        self.lvlo.add_data(struct.pack('<H', level))
+        self.lvlo.add_data(struct.pack('<H', 4667))
+        self.lvlo.add_data(struct.pack('<L', form_id))
+        self.lvlo.add_data(struct.pack('<H', count))
+        self.lvlo.add_data(struct.pack('<H', 4667))
+        self.lvlo.finalize()
+        self.record.add_subrecord(self.lvlo.subrecord)
+
+    def finalize(self):
+        self.record.finalize()
