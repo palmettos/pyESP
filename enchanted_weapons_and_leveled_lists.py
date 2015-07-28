@@ -60,7 +60,9 @@ e = None
 w = None
 
 for n in range(1, max_meffs + 1):
+    accum = 0
     for meffs in itertools.combinations(enchants.keys(), n):
+        accum += 1
         meffs = list(meffs)
         random.shuffle(meffs)
 
@@ -124,6 +126,8 @@ for n in range(1, max_meffs + 1):
         if weap_types[rand_weapon[enchant_cols["Type"]]] == 0:
             lvli.add_item(1, item_form_id, 1)
 
+    print(str(accum) + ' items generated when n = ' + str(n))
+
 
 g_enchants.finalize()
 h.add_group(g_enchants)
@@ -135,7 +139,7 @@ g_lvli.finalize()
 h.add_group(g_lvli)
 h.finalize()
 
-f = open('OBXLTests.esp', 'wb')
+f = open('OBXLTests1.esp', 'wb')
 f.write(h.packed)
 for group in h.groups:
     f.write(group.header)
