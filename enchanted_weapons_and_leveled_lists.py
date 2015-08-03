@@ -63,7 +63,13 @@ w = None
 for n in range(1, max_meffs + 1):
     accum = 0
     for meffs in itertools.combinations(enchants.keys(), n):
-        num_rolls = int((((max_meffs + 1) - n)**3) * ((n < 4)) + 1 + (n != 4))
+        num_rolls = int(
+            (((n == 1)*3)**5) +
+            (((n == 2)*3)**5) +
+            (((n == 3)*2)**5) +
+            ((n == 4)*1) +
+            ((n == 5)*1)
+            )
         chance_none = (n**2)*3
         if random.randint(1, 100) < chance_none:
             continue

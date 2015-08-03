@@ -166,7 +166,7 @@ class Weapon:
         self.modb.add_data(struct.pack('<f', radius))
         self.modb.finalize()
 
-    def set_icon(self0, icon):
+    def set_icon(self, icon):
         self.icon = Subrecord('ICON')
         self.icon.add_data(bytes(icon) + '\x00')
         self.icon.finalize()
