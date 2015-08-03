@@ -27,7 +27,8 @@ enchant_cols = {
     "QuestItem":        19,
     "Dangerous":        20,
     "Ignored":          21,
-    "Deleted":          22
+    "Deleted":          22,
+    "BoundRadius":      23
 }
 
 weap_types = {
@@ -62,69 +63,76 @@ w = None
 for n in range(1, max_meffs + 1):
     accum = 0
     for meffs in itertools.combinations(enchants.keys(), n):
-        accum += 1
-        meffs = list(meffs)
-        random.shuffle(meffs)
+        num_rolls = int((((max_meffs + 1) - n)**3) * ((n < 4)) + 1 + (n != 4))
+        chance_none = (n**2)*3
+        if random.randint(1, 100) < chance_none:
+            continue
+        else:
+            for roll in range(0, num_rolls):
+                accum += 1
+                meffs = list(meffs)
+                random.shuffle(meffs)
 
-        edid_suff = ''
-        for s in meffs:
-            edid_suff += s
-        edid = 'OBXLEnch' + edid_suff
+                edid_suff = ''
+                for s in meffs:
+                    edid_suff += s
+                edid = 'OBXLEnch' + edid_suff + str(roll)
 
-        ench_form_id = form_ids.new_form_id()
-        e = Enchantment(
-            ench_form_id,
-            edid,
-            [ench_type, ench_cost, ench_charge, ench_autocalc]
-            )
+                ench_form_id = form_ids.new_form_id()
+                e = Enchantment(
+                    ench_form_id,
+                    edid,
+                    [ench_type, ench_cost, ench_charge, ench_autocalc]
+                    )
 
-        for effect_id in meffs:
-            effect = [
-                effect_id,
-                random.randint(
-                    enchants[effect_id]["magnitude"][0],
-                    enchants[effect_id]["magnitude"][1]
-                    ),
-                random.randint(
-                    enchants[effect_id]["area"][0],
-                    enchants[effect_id]["area"][1]
-                    ),
-                random.randint(
-                    enchants[effect_id]["duration"][0],
-                    enchants[effect_id]["duration"][1]
-                    ),
-                1,
-                enchants[effect_id]["actor_value"]
-            ]
-            e.add_effect(effect)
+                for effect_id in meffs:
+                    effect = [
+                        effect_id,
+                        random.randint(
+                            enchants[effect_id]["magnitude"][0],
+                            enchants[effect_id]["magnitude"][1]
+                            ),
+                        random.randint(
+                            enchants[effect_id]["area"][0],
+                            enchants[effect_id]["area"][1]
+                            ),
+                        random.randint(
+                            enchants[effect_id]["duration"][0],
+                            enchants[effect_id]["duration"][1]
+                            ),
+                        1,
+                        enchants[effect_id]["actor_value"]
+                    ]
+                    e.add_effect(effect)
 
-        e.finalize()
-        g_enchants.add_record(e.record)
+                e.finalize()
+                g_enchants.add_record(e.record)
 
-        rand_weapon = weapons[random.randint(0, len(weapons)-1)]
-        edid = 'OBXLWeap' + edid_suff
-        item_form_id = form_ids.new_form_id()
-        w = Weapon(item_form_id)
-        w.set_edid(edid)
-        w.set_name('OBXLWeap' + edid_suff)
-        w.set_model(rand_weapon[enchant_cols["Model"]])
-        w.set_icon(rand_weapon[enchant_cols["Icon"]])
-        w.set_script(0)
-        w.set_enchantment_points(5000)
-        w.set_enchantment(ench_form_id)
-        w.set_type(weap_types[rand_weapon[enchant_cols["Type"]]])
-        w.set_speed(float(rand_weapon[enchant_cols["Speed"]]))
-        w.set_reach(float(rand_weapon[enchant_cols["Reach"]]))
-        w.set_flags(0)
-        w.set_value(int(rand_weapon[enchant_cols["Value"]]) + (500*n))
-        w.set_health(int(rand_weapon[enchant_cols["Health"]]))
-        w.set_weight(float(rand_weapon[enchant_cols["Weight"]]))
-        w.set_damage(int(rand_weapon[enchant_cols["Damage"]]))
-        w.finalize()
-        g_weapons.add_record(w.record)
+                rand_weapon = weapons[random.randint(0, len(weapons)-1)]
+                edid = 'OBXLWeap' + edid_suff + str(roll)
+                item_form_id = form_ids.new_form_id()
+                w = Weapon(item_form_id)
+                w.set_edid(edid)
+                w.set_name('OBXLWeap' + edid_suff)
+                w.set_model(rand_weapon[enchant_cols["Model"]])
+                w.set_bound_radius(float(rand_weapon[enchant_cols["BoundRadius"]]))
+                w.set_icon(rand_weapon[enchant_cols["Icon"]])
+                w.set_script(0)
+                w.set_enchantment_points(5000)
+                w.set_enchantment(ench_form_id)
+                w.set_type(weap_types[rand_weapon[enchant_cols["Type"]]])
+                w.set_speed(float(rand_weapon[enchant_cols["Speed"]]))
+                w.set_reach(float(rand_weapon[enchant_cols["Reach"]]))
+                w.set_flags(0)
+                w.set_value(int(rand_weapon[enchant_cols["Value"]]) + (500*n))
+                w.set_health(int(rand_weapon[enchant_cols["Health"]]))
+                w.set_weight(float(rand_weapon[enchant_cols["Weight"]]))
+                w.set_damage(int(rand_weapon[enchant_cols["Damage"]]))
+                w.finalize()
+                g_weapons.add_record(w.record)
 
-        if weap_types[rand_weapon[enchant_cols["Type"]]] == 0:
-            lvli.add_item(1, item_form_id, 1)
+                if weap_types[rand_weapon[enchant_cols["Type"]]] == 0 & n < 4:
+                    lvli.add_item(1, item_form_id, 1)
 
     print(str(accum) + ' items generated when n = ' + str(n))
 

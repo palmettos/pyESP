@@ -162,9 +162,11 @@ class Weapon:
         self.modl.finalize()
 
     def set_bound_radius(self, radius):
-        pass
+        self.modb = Subrecord('MODB')
+        self.modb.add_data(struct.pack('<f', radius))
+        self.modb.finalize()
 
-    def set_icon(self, icon):
+    def set_icon(self0, icon):
         self.icon = Subrecord('ICON')
         self.icon.add_data(bytes(icon) + '\x00')
         self.icon.finalize()
@@ -225,6 +227,7 @@ class Weapon:
             self.edid.subrecord +
             self.full.subrecord +
             self.modl.subrecord +
+            self.modb.subrecord +
             self.icon.subrecord +
             self.scri.subrecord +
             self.enam.subrecord +
