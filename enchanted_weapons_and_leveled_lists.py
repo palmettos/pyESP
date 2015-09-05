@@ -1,5 +1,5 @@
-from Records import *
-from FormID import *
+from esp.records import *
+from esp.form_ids import *
 import itertools
 import random
 import json
