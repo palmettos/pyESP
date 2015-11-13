@@ -9,29 +9,29 @@ The TES4 ESP file format consists of its header and one or more groups consistin
 
 As a basic example, let's create a weapon. We start by instantiating a FormIDHandler:
 
-'''python
+```python
 from esp.form_ids import FormIDHandler
 
 id_handler = FormIDHandler()
-'''
+```
 
 This will provide us with a way to give any objects we create unique FormIDs as the handler tracks dispensed FormIDs internally. Next, we create our header:
 
-'''python
+```python
 from esp import records
 
 header = records.Header('palmettos')
-'''
+```
 
 The argument provided is the author of the file which will be displayed in the TES4 launcher and Construction Set. Next, we create our weapon group:
 
-'''python
+```python
 weapon_group = records.Group('WEAP', 0)
-'''
+```
 
 The second positional argument is the group type. For the purposes of most record types, this will always be 0. The exception to this is cell records, which you can read about on the wiki mentioned above. Next, we'll create our weapon:
 
-'''python
+```python
 weapon = records.Weapon(id_handler.new_form_id()) # The FormID.
 weapon.set_edid('pyESPExampleWeapon') # The EditorID of the record, for use in the Construction Set.
 weapon.set_name('pyESP Example Weapon') # The name of the weapon, shown in-game.
@@ -49,26 +49,26 @@ weapon.set_value(500) # The value of the weapon, in gold pieces.
 weapon.set_health(100) # The health of the weapon. This is used in calculating disintegrate damage and durability.
 weapon.set_weight(10) # The weight of the item in the inventory.
 weapon.set_damage(15) # The base damage of the weapon.
-'''
+```
 
 Next, we must finalize each record to order its bytes correctly before writing them to the file. Then, we add them to the weapon group:
 
-'''python
+```python
 weapon.finalize()
 weapon_group.add_record(weapon.record) # The record attribute is the ordered and packed byte data after finalization.
-'''
+```
 
 Then, we finalize the group, add it to the header, and finalize the header:
 
-'''python
+```python
 weapon_group.finalize()
 header.add_group(weapon_group)
 header.finalize()
-'''
+```
 
 Finally, we'll write the file to the hard drive starting from the header and looping through the groups record by record:
 
-'''python
+```python
 f = open('Example.esp', 'wb')
 f.write(header.packed)
 for group in header.groups:
@@ -76,6 +76,6 @@ for group in header.groups:
     for record in group.records:
         f.write(record)
 f.close()
-'''
+```
 
 Now the file can be loaded into the Construction Set or loaded by the game for use. For a more complicated example which displays how useful the library can be for generating an arbitrary number of randomized records, see enchanted_weapons_and_leveled_lists.py in the root directory of this repository.
