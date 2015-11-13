@@ -4,7 +4,7 @@ import itertools
 import random
 import json
 
-enchant_cols = {
+weapon_cols = {
     "Weight":           0,
     "Speed":            1,
     "Reach":            2,
@@ -123,24 +123,24 @@ for n in range(1, max_meffs + 1):
                     w = Weapon(item_form_id)
                     w.set_edid(edid)
                     w.set_name('OBXLWeap' + edid_suff)
-                    w.set_model(rand_weapon[enchant_cols["Model"]])
-                    w.set_bound_radius(float(rand_weapon[enchant_cols["BoundRadius"]]))
-                    w.set_icon(rand_weapon[enchant_cols["Icon"]])
+                    w.set_model(rand_weapon[weapon_cols["Model"]])
+                    w.set_bound_radius(float(rand_weapon[weapon_cols["BoundRadius"]]))
+                    w.set_icon(rand_weapon[weapon_cols["Icon"]])
                     w.set_script(0)
                     w.set_enchantment_points(5000)
                     w.set_enchantment(ench_form_id)
-                    w.set_type(weap_types[rand_weapon[enchant_cols["Type"]]])
-                    w.set_speed(float(rand_weapon[enchant_cols["Speed"]]))
-                    w.set_reach(float(rand_weapon[enchant_cols["Reach"]]))
+                    w.set_type(weap_types[rand_weapon[weapon_cols["Type"]]])
+                    w.set_speed(float(rand_weapon[weapon_cols["Speed"]]))
+                    w.set_reach(float(rand_weapon[weapon_cols["Reach"]]))
                     w.set_flags(0)
-                    w.set_value(int(rand_weapon[enchant_cols["Value"]]) + (500*n))
-                    w.set_health(int(rand_weapon[enchant_cols["Health"]]))
-                    w.set_weight(float(rand_weapon[enchant_cols["Weight"]]))
-                    w.set_damage(int(rand_weapon[enchant_cols["Damage"]]))
+                    w.set_value(int(rand_weapon[weapon_cols["Value"]]) + (500*n))
+                    w.set_health(int(rand_weapon[weapon_cols["Health"]]))
+                    w.set_weight(float(rand_weapon[weapon_cols["Weight"]]))
+                    w.set_damage(int(rand_weapon[weapon_cols["Damage"]]))
                     w.finalize()
                     g_weapons.add_record(w.record)
 
-                    if weap_types[rand_weapon[enchant_cols["Type"]]] == 0 & n < 4:
+                    if weap_types[rand_weapon[weapon_cols["Type"]]] == 0 & n < 4:
                         lvli.add_item(1, item_form_id, 1)
 
     print(str(accum) + ' items generated when n = ' + str(n))
